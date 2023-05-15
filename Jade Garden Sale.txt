@@ -1,0 +1,25 @@
+Scrambled Egg White with Milk,15.0,1,1
+Scrambled Egg White with Milk,15.0,3,3
+Scrambled Egg White with Milk,15.0,2,2
+Poached Tofu with Dried Shrimps,12.0,5,5
+Braised Chicken in Black Bean Sauce,15.0,1,1
+Braised Goose Web with Vermicelli,21.0,1,1
+Poached Tofu with Dried Shrimps,12.0,3,3
+Poached Tofu with Dried Shrimps,12.0,4,4
+Poached Tofu with Dried Shrimps,12.0,1,1
+Braised Goose Web with Vermicelli,21.0,3,3
+Braised Goose Web with Vermicelli,21.0,2,2
+Poached Tofu with Dried Shrimps,12.0,2,2
+Braised Chicken in Black Bean Sauce,15.0,5,5
+Braised Goose Web with Vermicelli,21.0,5,5
+Braised Chicken in Black Bean Sauce,15.0,4,4
+Braised Goose Web with Vermicelli,21.0,4,4
+Braised Chicken in Black Bean Sauce,15.0,3,3
+Braised Chicken in Black Bean Sauce,15.0,2,2
+Deep-fried Hiroshima Oysters,17.0,5,5
+Deep-fried Hiroshima Oysters,17.0,4,4
+Deep-fried Hiroshima Oysters,17.0,1,1
+Scrambled Egg White with Milk,15.0,5,5
+Scrambled Egg White with Milk,15.0,4,4
+Deep-fried Hiroshima Oysters,17.0,3,3
+Deep-fried Hiroshima Oysters,17.0,2,2
