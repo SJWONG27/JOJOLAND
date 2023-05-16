@@ -6,7 +6,7 @@ package jojoland;
 /**
  *
  * @author fasyu
- */
+ *///
 public class FoodSales extends Food{
     private int quantity;
     private int day;
