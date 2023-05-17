@@ -22,7 +22,8 @@ public class MoodyBlues{
     // A method to print option available in MoodyBlues(Sales Information)
     public void printMoodyBlues(){
         Scanner sc = new Scanner(System.in);
-        while(true){
+        boolean status = true;
+        while(status){
             System.out.println("Restaurant: "+menu.getRestaurant());
             System.out.println("Sales Information");
             System.out.println("[1] View Sales");
@@ -34,7 +35,7 @@ public class MoodyBlues{
             System.out.println("[3] Exit");
             System.out.println("Select : ");
             String choice = sc.nextLine();
-
+            
             switch(choice){
                 case "1":
                     viewSales();
@@ -52,8 +53,11 @@ public class MoodyBlues{
                     viewTotalAverageSales();
                     break;
                 case "3":
-                    // exit view sales info
-                default:
+                    status = false;
+                    System.out.println("======================================================================");
+                    break; // exit view sales info
+                default:  System.out.println("======================================================================");
+
             }
         }    
     }
@@ -102,7 +106,7 @@ public class MoodyBlues{
             }
         }
         System.out.println("Minimum sales Day "+dayMin);
-        System.out.println("Total Sales : "+min);
+        System.out.printf("Total Sales : $%3.2f\n",min);
         System.out.println("======================================================================");
     }
     // A method to print maximum sales
@@ -120,8 +124,8 @@ public class MoodyBlues{
                 dayMax = day ;
             }
         }
-        System.out.println("Minimum sales Day "+dayMax);
-        System.out.println("Total Sales : "+max);
+        System.out.println("Maximum sales Day "+dayMax);
+        System.out.printf("Total Sales : $%3.2f\n",max);
         System.out.println("======================================================================");
     }
     
@@ -143,10 +147,12 @@ public class MoodyBlues{
         });
 
         // Print the sorted list
+        System.out.println("Top "+k+" highest selling dishes in "+menu.getRestaurant());
+        System.out.println("");
         for (FoodSales foodSales : foodSalesList) {
             i++;
-            System.out.println("Name: " + foodSales.getName() +
-                    ", Quantity: " + foodSales.getQuantity());
+            System.out.printf("%-35s Quantity : %d",foodSales.getName(),foodSales.getQuantity());
+            System.out.println("");
             if(i==k)
                 break;
         }
@@ -179,8 +185,8 @@ public class MoodyBlues{
         
         
         System.out.println("+-------------------------------------+----------+-------------+");
-        System.out.printf("|                                   Total Sales  |   $%-6.2f  |\n",totalSales);
-        System.out.printf("|                                 Average Sales  |   $%-6.2f  |\n",averageSales);
+        System.out.printf("|                                   Total Sales  |   $%-6.2f   |\n",totalSales);
+        System.out.printf("|                                 Average Sales  |   $%-6.2f   |\n",averageSales);
         System.out.println("+-------------------------------------+----------+-------------+");
         System.out.println("======================================================================");
     }
