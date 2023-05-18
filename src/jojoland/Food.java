@@ -1,14 +1,7 @@
-/*
- * NUR FATIHA SYUHADA BINTI AZIZI      U2101063/2      OCC 1
- */
 package jojoland;
 
-/**
- *
- * @author fasyu
- */
+// Food class that store each food name and price
 public class Food {
-    // Food class that store food name and price
     String name;
     double price;
     
