@@ -1,28 +1,36 @@
-/*
- * NUR FATIHA SYUHADA BINTI AZIZI      U2101063/2      OCC 1
- */
 package jojoland;
 
 import java.io.*;
 import java.util.*;
 
-/**
- *
- * @author fasyu
- */
+// Menu class to view, add , modify and remove menu
 public class Menu {
-    String restaurant; // restaurant's name
-    ArrayList<Food> foodList; // list of menu
+    private String restaurant; // restaurant's name
+    private ArrayList<Food> foodList; // list of menu
     
     public Menu(String restaurant) {
         this.restaurant = restaurant; 
-        foodList = readMenuFromFile(); // read ArrayList<Food> from file according to each restaurant
+        foodList = readMenuFromFile(); // get ArrayList<Food> from file according to each restaurant
     }
-    // A getter method for restaurant's name
+    
     public String getRestaurant() {
         return restaurant;
     }
-    // A method to read menu from file based on restaurant name , return ArrayList<Food> 
+
+    public void setRestaurant(String restaurant) {
+        this.restaurant = restaurant;
+    }
+
+    public ArrayList<Food> getFoodList() {
+        return foodList;
+    }
+
+    public void setFoodList(ArrayList<Food> foodList) {
+        this.foodList = foodList;
+    }
+    
+    
+    
     private ArrayList<Food> readMenuFromFile() {
         ArrayList<Food> menu = new ArrayList<>();
         ArrayList<String> menuName = new ArrayList<>();
@@ -48,7 +56,6 @@ public class Menu {
         return null;
     }
 
-    // A method to write menu to file based on restaurant name , main purpose to save any changes in menu
     private void writeMenuToFile() {
         String fileName = restaurant+ ".txt";
 
@@ -63,7 +70,6 @@ public class Menu {
         }
     }
     
-    // A method to add new food to the menu
     public void addMenu(String name,double price){
         Food newFood = new Food(name,price);
         foodList.add(newFood);
@@ -73,7 +79,6 @@ public class Menu {
         writeMenuToFile();
     }
     
-    // A method to remove food from the menu , parameter needed food's name
     public void removeMenu(String name) {
         int index = -1;
         for (int i = 0; i < foodList.size(); i++) {
@@ -95,7 +100,6 @@ public class Menu {
         writeMenuToFile();
     }
     
-    // A method to modify food Price from the menu , parameter needed food's name and new food's price
     public void modifyMenu(String name, double newPrice) {
         boolean found = false;
         for (Food food : foodList) {
@@ -112,11 +116,9 @@ public class Menu {
             System.out.println("Menu item '" + name + "' not found.");
             System.out.println("======================================================================");
         }
-        printMenu();
         writeMenuToFile();
     }
 
-    // A method to print the menu and the option available
     public void printMenu(){
         System.out.println(getRestaurant()+"'s Menu");
         for (Food item : foodList){
@@ -145,13 +147,14 @@ public class Menu {
                 System.out.print("Enter new food price : ");
                 newPrice = sc.nextDouble();
                 modifyMenu(name,newPrice);
+                printMenu();
             break;
             case 3: 
                 System.out.print("Enter food name to remove : ");
                 name = sc.nextLine();
                 removeMenu(name);
             break;
-            default: System.out.println("");
+            default: 
         }
     }
     

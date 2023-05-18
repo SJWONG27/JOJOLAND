@@ -1,52 +1,56 @@
-/*
- * NUR FATIHA SYUHADA BINTI AZIZI      U2101063/2      OCC 1
- */
 package jojoland;
 
 import java.io.*;
 import java.util.*;
 
-/**
- *
- * @author fasyu
- */
 public class SalesRecord{
-    Menu menu; // reference to the Menu instance : String restaurant , ArrayList<Food> foodList
-    
-    ArrayList<FoodSales> foodSales; // list of food sales by day
-    
+    private Menu menu; // reference to the Menu instance : String restaurant , ArrayList<Food> foodList
+    private ArrayList<FoodSales> foodSales; // list of food sales by day
+
     public SalesRecord(Menu menu){
         this.menu = menu;
-        foodSales = readSaleFromFile();
-}
+        foodSales = defaultSale();
+    }
+    
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public void setMenu(Menu menu) {
+        this.menu = menu;
+    }
+
+    public ArrayList<FoodSales> getFoodSales() {
+        return foodSales;
+    }
+
+    public void setFoodSales(ArrayList<FoodSales> foodSales) {
+        this.foodSales = foodSales;
+    }
+
+    
+    
+    
+    public SalesRecord(Menu menu, ArrayList<FoodSales> foodSales){
+        this.menu = menu;
+        this.foodSales = foodSales;
+    }
+    
+    public ArrayList<FoodSales> defaultSale(){
+        ArrayList<FoodSales> def = new ArrayList<>();
+        for(Food food : menu.getFoodList()){
+            FoodSales fs = new FoodSales(food.getName(),food.getPrice(),1,0);
+            def.add(fs);
+        }
+        return def;
+    }
+
     // A method to add sale 
-    public void addSales(String name,double price,int day,int quantity) {
-        FoodSales newSale = new FoodSales(name,price,day,quantity);
+    public void addSales(Food food,int day,int quantity) {
+        FoodSales newSale = new FoodSales(food.getName(),food.getPrice(),day,quantity);
         foodSales.add(newSale);
         foodSales = mergeFoodSales(foodSales);
         writeSaleToFile();
-    }
-    
-    // A method to merge FoodSales list based on name and price 
-    public ArrayList<FoodSales> mergeAllFoodSales(ArrayList<FoodSales> foodSalesList){
-        Map<String, FoodSales> mergedSales = new HashMap<>();
-
-        // Iterate through the list and merge items based on name and price
-        for (FoodSales foodSales : foodSalesList) {
-            String key = foodSales.getName() + "-" + foodSales.getPrice();
-            if (mergedSales.containsKey(key)) {
-                // Item with the same name and price already exists, merge the quantities and days
-                FoodSales mergedItem = mergedSales.get(key);
-                mergedItem.setQuantity(mergedItem.getQuantity() + foodSales.getQuantity());
-                mergedItem.setDay(mergedItem.getDay() + foodSales.getDay());
-            } else {
-                // Item doesn't exist, add it to the mergedSales map
-                mergedSales.put(key, foodSales);
-            }
-        }
-
-        // Convert the map values back to a list
-        return new ArrayList<>(mergedSales.values());
     }
     
     // A method to merge FoodSales list based on name , price and day
@@ -67,11 +71,33 @@ public class SalesRecord{
         return new ArrayList<>(mergedMap.values());
     }
     
+    // A method to merge FoodSales list based on name and price : for Total Average Sales
+    public ArrayList<FoodSales> mergeAllFoodSales(ArrayList<FoodSales> foodSalesList){
+        Map<String, FoodSales> mergedSales = new HashMap<>();
+        // Iterate through the list and merge items based on name and price
+        for (FoodSales foodSales : foodSalesList) {
+            String key = foodSales.getName() + "-" + foodSales.getPrice();
+            if (mergedSales.containsKey(key)) {
+                // Item with the same name and price already exists, merge the quantities and days
+                FoodSales mergedItem = mergedSales.get(key);
+                mergedItem.setQuantity(mergedItem.getQuantity() + foodSales.getQuantity());
+                mergedItem.setDay(mergedItem.getDay() + foodSales.getDay());
+            } else {
+                // Item doesn't exist, add it to the mergedSales map
+                mergedSales.put(key, foodSales);
+            }
+        }
+
+        // Convert the map values back to a list
+        return new ArrayList<>(mergedSales.values());
+    }
+    
+    
     // A method to merge FoodSales list based on name and price , between range of day
-    public static ArrayList<FoodSales> mergeFoodSalesByDay(ArrayList<FoodSales> foodSalesList, int startDay, int endDay) {
+    public ArrayList<FoodSales> mergeFoodSalesByDay(int startDay, int endDay) {
         Map<String, FoodSales> mergedMap = new HashMap<>();
         // Iterate through the list and merge items
-        for (FoodSales foodSales : foodSalesList) {
+        for (FoodSales foodSales : foodSales) {
             // Merging occur only within range of day
                 if (foodSales.getDay() >= startDay && foodSales.getDay() <= endDay) {
                 String key = foodSales.getName() + "_" + foodSales.getPrice();
@@ -88,7 +114,7 @@ public class SalesRecord{
     }
     
     // A method to merge FoodSales list based on name and price , between range of day
-    public static Map<Integer, Double> mergeQuantities(ArrayList<FoodSales> foodSalesList) {
+    public Map<Integer, Double> mergeQuantities(ArrayList<FoodSales> foodSalesList) {
         Map<Integer, Double> totalSalesByDay = new HashMap<>();
         // Iterate through the list and merge items
         for (FoodSales foodSales : foodSalesList) {
@@ -102,7 +128,6 @@ public class SalesRecord{
                 totalSalesByDay.put(day, totalPrice);
             }
         }
-        
         return totalSalesByDay;
     }
     
@@ -128,7 +153,6 @@ public class SalesRecord{
         String fileName = menu.getRestaurant() + " Sale.txt";
         
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
@@ -148,12 +172,13 @@ public class SalesRecord{
         }
         return null;
     }
+    
     public void writeSaleToFile() {
         String fileName = menu.getRestaurant()+ " Sale.txt";
         
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             for (FoodSales sale : foodSales) {
-                writer.write(sale.getName()+","+sale.getPrice()+","+sale.getDay()+","+sale.getDay());
+                writer.write(sale.getName()+","+sale.getPrice()+","+sale.getDay()+","+sale.getQuantity());
                 writer.newLine();
             }
         } catch (IOException e) {
@@ -167,7 +192,6 @@ public class SalesRecord{
         for(FoodSales sale : foodSales){
             if(sale.getDay()==day)
                 System.out.println(sale.getName()+" "+sale.getQuantity());
-                
         }
         System.out.println("");
     }

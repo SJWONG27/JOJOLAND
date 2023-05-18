@@ -1,12 +1,6 @@
-/*
- * NUR FATIHA SYUHADA BINTI AZIZI      U2101063/2      OCC 1
- */
 package jojoland;
 
-/**
- *
- * @author fasyu
- *///
+// FoodSales class that store food name, price, day food sold, and quantity food sold
 public class FoodSales extends Food{
     private int quantity;
     private int day;
@@ -51,5 +45,9 @@ public class FoodSales extends Food{
 
     public void setDay(int day) {
         this.day = day;
+    }
+    
+    public void addQuantity(int quantity){
+        this.quantity+=quantity;
     }
 }
