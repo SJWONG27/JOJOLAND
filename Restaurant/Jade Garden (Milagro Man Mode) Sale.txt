@@ -1,0 +1,9 @@
+Scrambled Egg White with Milk,15.0,1,0
+Scrambled Egg White with Milk,15.0,2,12
+Braised Chicken in Black Bean Sauce,30.0,1,6
+Braised Goose Web with Vermicelli,21.0,1,3
+Poached Tofu with Dried Shrimps,12.0,3,2
+Poached Tofu with Dried Shrimps,12.0,1,0
+Deep-fried Hiroshima Oysters,17.0,1,0
+Braised Chicken in Black Bean Sauce,15.0,3,20
+Braised Chicken in Black Bean Sauce,30.0,2,3
