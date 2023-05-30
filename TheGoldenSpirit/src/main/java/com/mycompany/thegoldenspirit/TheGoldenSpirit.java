@@ -73,7 +73,7 @@ public class TheGoldenSpirit {
         if (lca != null) {
             System.out.printf("Lowest Common Ancestor of %s and %s is: %s" ,name1,name2, lca.input);
         } else {
-            System.out.println("Values not found in the tree.");
+            System.out.println("Name entered is not in the Joestar family.");
         }
     }
 }
