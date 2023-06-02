@@ -11,7 +11,6 @@ package com.mycompany.thegoldenspirit;
 import java.util.Scanner;
 
 class Node {
-
     String input;
     Node left, right;
 
@@ -22,56 +21,64 @@ class Node {
 }
 
 public class TheGoldenSpirit {
-
     Node root;
 
     Node findLCA(String n1, String n2) {
-        return findLCA(root, n1, n2);
+        return findLCAUtil(root, n1, n2);
     }
 
-    
-    Node findLCA(Node node, String n1, String n2) {
+    Node findLCAUtil(Node node, String n1, String n2) {
         if (node == null) {
             return null;
         }
-        // key becomes LCA
-        if (node.input.equals(n1) || node.input.equals(n2)) { //if either input matches the root key
+
+        if (node.left != null && (node.left.input.equals(n1) || node.left.input.equals(n2))) {
             return node;
         }
 
-        Node left_lca = findLCA(node.left, n1, n2);
-        Node right_lca = findLCA(node.right, n1, n2);
-
-        if (left_lca != null && right_lca != null) {
+        if (node.right != null && (node.right.input.equals(n1) || node.right.input.equals(n2))) {
             return node;
         }
-        return (left_lca != null) ? left_lca : right_lca;
+
+        Node leftLCA = findLCAUtil(node.left, n1, n2);
+        Node rightLCA = findLCAUtil(node.right, n1, n2);
+
+        if (leftLCA != null && rightLCA != null) {
+            return node;
+        }
+
+        if (leftLCA != null) {
+            return leftLCA;
+        }
+
+        if (rightLCA != null) {
+            return rightLCA;
+        }
+
+        return null;
     }
 
     public static void main(String args[]) {
         TheGoldenSpirit tree = new TheGoldenSpirit();
         tree.root = new Node("George Joestar I and Mary Joestar");
-        tree.root.left = new Node("Jonathan Joestar and Erina Joestar");
-        tree.root.right = new Node("Jonathan Joestar and DIO");
-        tree.root.left.left = new Node("George Joestar II and Lisa Lisa");
-        tree.root.right.right = new Node("Giorno Giovanna");
-        tree.root.left.left.left = new Node("Jospeh  Joestar and Suzi Q");
-        tree.root.left.left.left.left = new Node("Holy Kujo and Sadao Kujo");
-        tree.root.left.left.right = new Node("Jospeh Joestar and Tomoko Higashikata");
-        tree.root.left.left.right.right = new Node("Josuke Higashikata");
-        tree.root.left.left.left.left = new Node("Holy Kujo and Sadao Kujo");
+        tree.root.left = new Node("Jonathan Joestar");
+        tree.root.left.left = new Node("George Joestar II");
+        tree.root.left.right = new Node("Giorno Giovanna");
+        tree.root.left.left.left = new Node("Joseph Joestar");
+        tree.root.left.left.left.left = new Node("Holy Kujo");
+        tree.root.left.left.left.right = new Node("Josuke Higashikata");
         tree.root.left.left.left.left.left = new Node("Jotaro Kujo");
         tree.root.left.left.left.left.left.left = new Node("Jolyne Cujoh");
-        
+
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the name of the first Joestar: ");
         String name1 = scanner.nextLine();
-        System.out.print("Enter the name of the second Joestar ");
+        System.out.print("Enter the name of the second Joestar: ");
         String name2 = scanner.nextLine();
 
         Node lca = tree.findLCA(name1, name2);
         if (lca != null) {
-            System.out.printf("Lowest Common Ancestor of %s and %s is: %s" ,name1,name2, lca.input);
+            System.out.printf("Lowest Common Ancestor of %s and %s is: %s\n", name1, name2, lca.input);
         } else {
             System.out.println("Name entered is not in the Joestar family.");
         }
