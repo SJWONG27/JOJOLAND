@@ -1,6 +1,0 @@
-Formaggio,12.50
-Ghiaccio,1.01
-Melone,5.20
-Prosciutto and Pesci,20.23
-Risotto,13.14
-Zucchero and Sale,0.60
