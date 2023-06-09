@@ -46,7 +46,6 @@ public class Menu {
     public void setFoodList(ArrayList<Food> foodList) {
         this.foodList = foodList;
     }
-    
     private ArrayList<Food> defaultMenu(String restaurant){
         ArrayList<Food> menu = new ArrayList<>();
         if(restaurant.equals("Jade Garden")||restaurant.equals("Jade Garden (Milagro Man Mode)")){
@@ -69,7 +68,7 @@ public class Menu {
                 menu.add(new Food("Lamb Chops with Apple Sauce",25.00));
                 menu.add(new Food("Spaghetti alla Puttanesca",15.00));
         }
-        else if(restaurant.equals("Liberrio")||restaurant.equals("Liberrio (Milagro Man Mode)")){
+        else if(restaurant.equals("Libeccio")||restaurant.equals("Libeccio (Milagro Man Mode)")){
                 menu.add(new Food("Formaggio",12.50));
                 menu.add(new Food("Ghiaccio",1.01));
                 menu.add(new Food("Melone",5.20));

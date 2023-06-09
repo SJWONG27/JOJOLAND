@@ -44,8 +44,9 @@ public class MilagroMan{
                     salesInfo.printMoodyBlues();
                     break;
                 case 3:
-                    status = false;
                     menu.resetFoodList(); // Reset menu to its original state
+                    sale.resetSales();
+                    status = false;
                     break;
                 default: status = false;
             }

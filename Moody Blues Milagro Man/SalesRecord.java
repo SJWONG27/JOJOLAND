@@ -14,8 +14,7 @@ public class SalesRecord implements Cloneable {
     public int currentDay;
     private static Map<Integer, Map<String, Integer>> quantityData; // Map<day, Map<foodName, Quantity>>
     private static Map<Integer, Map<String, Double>> salesData; 
-    
-    
+    private static Map<Integer, Map<String, Double>> defaultSalesData; 
     
     // The constructor initializes the salesData map.
     
@@ -23,12 +22,12 @@ public class SalesRecord implements Cloneable {
         this.menu = menu;
         if (quantityData == null && salesData == null) {
             quantityData = new HashMap<>();
-            salesData = new HashMap<>();
-            
+            defaultSalesData = new HashMap<>();
             // currentDay = 8
             for(int i = 1 ; i < 8 ; i++)
                 recordSalefromFile(i,menu.getRestaurant());
         }
+        salesData = new HashMap<>(defaultSalesData);
     }
 
     public Map<Integer, Map<String, Integer>> getQuantityData() {
@@ -133,10 +132,10 @@ public class SalesRecord implements Cloneable {
     }
     
     public void recordSale(int day, String foodName, double foodPrice, int quantity) {
-        Map<String, Double> foodSales = salesData.getOrDefault(day, new HashMap<>());
+        Map<String, Double> foodSales = defaultSalesData.getOrDefault(day, new HashMap<>());
         double price = foodSales.getOrDefault(foodName, 0.00);
         foodSales.put(foodName, quantity*foodPrice);
-        salesData.put(day, foodSales);
+        defaultSalesData.put(day, foodSales);
     }
     
     public void setSale(int day, String foodName, double newPrice) {
@@ -170,5 +169,9 @@ public class SalesRecord implements Cloneable {
     public void copySales(SalesRecord sale){
         quantityData = new HashMap<>(sale.getQuantityData());
         salesData = new HashMap<>(sale.getSalesData());
+    }
+    
+    public void resetSales() {
+        salesData = new HashMap<>(defaultSalesData);
     }
 }
