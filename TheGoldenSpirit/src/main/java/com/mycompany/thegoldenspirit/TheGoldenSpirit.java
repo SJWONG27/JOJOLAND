@@ -1,13 +1,10 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Project/Maven2/JavaApp/src/main/java/${packagePath}/${mainClassName}.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.thegoldenspirit;
 
-/**
- *
- * @author Hewlett Packard
- */
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -69,7 +66,7 @@ public class LowestCommonAncestor {
         
         //conditions to find and print lowest common ancestor(lca)
         if (node1 != null && node2 != null) { //makes sure names are valid
-            GraphNode lca = findLCA(georgeImary, node1, node2);
+            GraphNode lca = getLCA(georgeImary, node1, node2);
             if (lca != null) {
                 System.out.println("===================================================");
                 System.out.print("Lowest Common Ancestor: " + lca.name);
@@ -108,7 +105,7 @@ public class LowestCommonAncestor {
         return null;
     }
     //method to find LCA
-    public static GraphNode findLCA(GraphNode root, GraphNode node1, GraphNode node2) {
+    public static GraphNode getLCA(GraphNode root, GraphNode node1, GraphNode node2) {
         if (root == null || node1 == null || node2 == null) {
             return null;
         }
@@ -118,9 +115,8 @@ public class LowestCommonAncestor {
         }
 
         GraphNode lca = null;
-
-        for (GraphNode neighbor : root.neighbours) {
-            GraphNode temp = findLCA(neighbor, node1, node2);
+        for (GraphNode neighbour : root.neighbours) {
+            GraphNode temp = getLCA(neighbour, node1, node2);
 
             if (temp != null) {
                 if (lca != null) {
@@ -135,8 +131,8 @@ public class LowestCommonAncestor {
             return lca;
         }
 
-        boolean node1Found = isNodePresent(root, node1);
-        boolean node2Found = isNodePresent(root, node2);
+        boolean node1Found = isNodeExist(root, node1);
+        boolean node2Found = isNodeExist(root, node2);
 
         if (node1Found && node2Found) {
             return root;
@@ -145,7 +141,7 @@ public class LowestCommonAncestor {
         return null;
     }
 
-    public static boolean isNodePresent(GraphNode root, GraphNode node) {
+    public static boolean isNodeExist(GraphNode root, GraphNode node) {
         if (root == null || node == null) { //graph doesnt exist
             return false;
         }
@@ -154,8 +150,8 @@ public class LowestCommonAncestor {
             return true;
         }
 
-        for (GraphNode neighbor : root.neighbours) { //serach for node recursively in reighboyurs
-            if (isNodePresent(neighbor, node)) {
+        for (GraphNode neighbor : root.neighbours) { //search for node recursively in reighbours
+            if (isNodeExist(neighbor, node)) {
                 return true;
             }
         }
